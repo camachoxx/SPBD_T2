@@ -1,2 +1,3 @@
-
-taxis.csv
+*.ipynb
+*.nbgrader.log
+*.csv
