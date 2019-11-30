@@ -23,7 +23,7 @@ docker run -v <path_to_local_folder>:/root/work --name docker-hive-on-tez -it -P
 Finally, to run the container in the future on the share folder you can use the following bash command:
 
 ```
-docker run -v  /Users/simaonovais/Desktop/Mestrado/2-ano/1-semestre/SPBD/Prática/Universe/Hive:/root/work prasanthj/docker-hive-on-tez
+docker run -v  <path_to_local_folder>:/root/work prasanthj/docker-hive-on-tez
 ```
 
 ### docker work directory
