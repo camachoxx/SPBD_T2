@@ -1,4 +1,4 @@
-CREATE VIEW IF NOT EXISTS T1 as
+CREATE VIEW IF NOT EXISTS T1 as   
 SELECT from_unixtime(unix_timestamp(pickup_datetime), 'EEEE') as w,
 from_unixtime(unix_timestamp(pickup_datetime),'hh') as h,
 CONCAT(CONCAT(ROUND(pickup_latitude,2),", ",ROUND(pickup_longitude,2)),", ",
@@ -7,5 +7,8 @@ FROM taxis;
 
 Select  w,h,r,count(r) as c
 FROM T1
-GROUP BY w,h,r
-ORDER BY c;
+GROUP BY w,h,r  
+ORDER BY c DESC  
+LIMIT 10;   
+-- to save memory
+DROP VIEW IF EXISTS T1;
