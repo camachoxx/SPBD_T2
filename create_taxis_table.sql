@@ -22,4 +22,15 @@ snow_depth float
 
 row format delimited fields terminated by ',';
 
-load data local inpath '/root/work/SPBD_T2/taxis.csv' overwrite into table taxis;
+load data local inpath '/root/work/taxis.csv' overwrite into table taxis;
+
+CREATE VIEW IF NOT EXISTS taxis_preprocessed as
+select row_idx,id vendor_id, pickup_datetime, dropoff_datetime, passager_count,
+pickup_longitude, pickup_latitude,
+CONCAT(ROUND(pickup_latitude,2),", ",ROUND(pickup_longitude,2)) as pickup_area,
+CONCAT(ROUND(dropoff_latitude,2),", ",ROUND(dropoff_longitude,2)) as dropoff_area,
+dropoff_longitude, dropoff_latitude, haversine_distance, maximum_temperature,
+minimum_temperature, average_temperature, precipitation, snow_fall, snow_depth
+from taxis;
+
+select * from taxis_preprocessed limit 9;
