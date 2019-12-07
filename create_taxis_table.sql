@@ -34,5 +34,3 @@ from_unixtime(unix_timestamp(pickup_datetime), 'EEE') as week_day_,
 dropoff_longitude, dropoff_latitude, haversine_distance, maximum_temperature,
 minimum_temperature, average_temperature, precipitation, snow_fall, snow_depth
 from taxis;
-
-select * from taxis_preprocessed limit 3;
