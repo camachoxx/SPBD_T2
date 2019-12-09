@@ -22,7 +22,7 @@ snow_depth float
 
 row format delimited fields terminated by ',';
 
-load data local inpath '/root/work/taxis.csv' overwrite into table taxis;
+load data local inpath '/root/work/SPBD_T2/taxis.csv' overwrite into table taxis;
 
 DROP TABLE taxis_preprocessed;
 CREATE TABLE taxis_preprocessed as
