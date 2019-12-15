@@ -1,24 +1,26 @@
-CREATE VIEW IF NOT EXISTS T3 as
-SELECT precipitation + snow_fall as p,
-CONCAT(ROUND(pickup_latitude,2),", ",ROUND(pickup_longitude,2)) as pickup_area
-FROM taxis;
+-- get necessary info from the dataset
+Drop view if exists preprocessed_precip_snowfall_view;
+CREATE VIEW preprocessed_precip_snowfall_view as
+SELECT (precipitation + snow_fall) as weather, pickup_area
+FROM taxis_preprocessed;
 
-CREATE VIEW IF NOT EXISTS RAIN AS
-Select pickup_area,COUNT(p) as c
-FROM T3
-WHERE p > 0.05
+Drop view if exists RAIN;
+CREATE VIEW RAIN AS
+Select pickup_area, COUNT(weather) as count_bad_weather
+FROM preprocessed_precip_snowfall_view
+WHERE weather > 0.05
 GROUP BY pickup_area;
+-- above 0.05 because we consider that the threshold for raining or snowfall
 
-CREATE VIEW IF NOT EXISTS NOTRAIN AS
-Select pickup_area,COUNT(p) as c2
-FROM T3
-WHERE p <= 0.05
+Drop view if exists NORAIN;
+CREATE VIEW NORAIN AS
+Select pickup_area, COUNT(weather) as count_nice_weather
+FROM preprocessed_precip_snowfall_view
+WHERE weather <= 0.05
 GROUP BY pickup_area;
+-- above 0.05 because we consider that the threshold for raining or snowfall
 
-SELECT RAIN.pickup_area,RAIN.c/NOTRAIN.c2 AS FACTOR
-FROM RAIN JOIN NOTRAIN ON RAIN.pickup_area = NOTRAIN.pickup_area
-GROUP BY RAIN.pickup_area;
-
-DROP VIEW IF EXISTS T3;
-DROP VIEW IF EXISTS RAIN;
-DROP VIEW IF EXISTS NOTRAIN;
+Drop Table if exists T3_answer;
+CREATE Table T3_answer as
+SELECT RAIN.pickup_area, (RAIN.count_bad_weather / NORAIN.count_nice_weather) AS FACTOR
+FROM RAIN inner JOIN NORAIN ON RAIN.pickup_area = NORAIN.pickup_area;
