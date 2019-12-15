@@ -16,7 +16,7 @@ WHERE p <= 0.05
 GROUP BY pickup_area;
 
 SELECT RAIN.pickup_area,RAIN.c/NOTRAIN.c2 AS FACTOR
-FROM RAIN JOIN NOTRAIN ON RAIN.pickup_area = NOTRAIN.pickup_area 
+FROM RAIN JOIN NOTRAIN ON RAIN.pickup_area = NOTRAIN.pickup_area
 GROUP BY RAIN.pickup_area,RAIN.c,NOTRAIN.c2;
 
 DROP VIEW IF EXISTS T3;
