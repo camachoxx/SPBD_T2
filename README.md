@@ -1,12 +1,15 @@
 This is the 2nd lab work for the course SPBD (Systems for Big Data Processing)
 
-
 # HIVE
 This lab consist mainly on the usage of Hive.
 
-# Running scripts
+# Running scripts (for evaluation)
 
-Please first run the script **create_taxis_table.sql** and only then try the scripts from the exercises.
+Before running anything please download the dataset with the name 'txis.csv' into the root directory of the project
+
+Then, please first run the script **create_taxis_table.sql** to load the dataset.
+
+Only then try the scripts from the exercises.
 
 
 ## Docker
